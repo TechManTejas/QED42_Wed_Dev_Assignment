@@ -11,7 +11,8 @@ export const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [categories, setCategories] = useState<string[]>([]);
-
+  const [localQuery, setLocalQuery] = useState<string>("")
+  
   const {
     selectedCategory,
     setSelectedCategory,
@@ -34,10 +35,16 @@ export const Navbar = () => {
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
+    setSearchQuery("")
+    setLocalQuery("")
+    navigate("/")
   };
 
   const handleSearchChange = (value: string) => {
+    console.log(value)
     setSearchQuery(value);
+    setSelectedCategory("ALL CATEGORIES")
+    navigate("/")
   };
 
   const handleSortChange = (e: any) => {
@@ -66,8 +73,8 @@ export const Navbar = () => {
               className="uppercase font-bold mr-1"
               style={{ width: 200 }}
             >
-              <Option value="all categories">
-                <div className="text-xs">All Categories</div>
+              <Option value="ALL CATEGORIES">
+                <div className="text-xs">ALL CATEGORIES</div>
               </Option>
               {categories.map((category) => (
                 <Option key={category} value={category}>
@@ -78,6 +85,8 @@ export const Navbar = () => {
               ))}
             </Select>
             <Search
+              value={localQuery}
+              onChange={(e) => setLocalQuery(e.target.value)}
               placeholder="I'm searching for ..."
               allowClear
               onSearch={(value) => handleSearchChange(value)}
@@ -150,13 +159,13 @@ export const Navbar = () => {
             value={sortOption}
             size="small"
           >
-            <Radio.Button value="price-low-high">
+            <Radio.Button value="price&order=asc">
               Price (Low to High)
             </Radio.Button>
-            <Radio.Button value="price-high-low">
+            <Radio.Button value="price&order=desc">
               Price (High to Low)
             </Radio.Button>
-            <Radio.Button value="rating-high-low">
+            <Radio.Button value="rating&order=desc">
               Rating (High to Low)
             </Radio.Button>
           </Radio.Group>

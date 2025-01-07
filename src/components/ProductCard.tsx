@@ -14,7 +14,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <div
-      className="hover:cursor-pointer relative flex w-full max-w-xs flex-col overflow-hidden rounded-lg bg-white shadow"
+      className="hover:cursor-pointer relative flex w-full max-w-xs flex-col overflow-hidden rounded-lg bg-white shadow h-min"
       onClick={handleCardClick}
     >
       <div className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl">

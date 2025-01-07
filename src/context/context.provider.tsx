@@ -10,9 +10,9 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [selectedCategory, setSelectedCategory] =
-    useState<string>("all categories");
+    useState<string>("ALL CATEGORIES");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [sortOption, setSortOption] = useState<string>("price-low-high");
+  const [sortOption, setSortOption] = useState<string>("price&order=asc");
   const [cart, setCart] = useState<Cart>({
     items: [],
     totalAmount: 0,

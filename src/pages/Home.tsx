@@ -3,14 +3,26 @@ import { ProductCard } from "../components/ProductCard";
 import { Product } from "../types/product.types";
 import axiosInstance from "../api/axios";
 import { Spin } from "antd";
+import { Context } from "../context/context.provider";
 
 export const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const { selectedCategory, searchQuery, sortOption } = Context();
+
   useEffect(() => {
+    // Determine the endpoint based on the search query and selected category
+    let endpoint = `/products?sortBy=${sortOption}`;
+
+    if (searchQuery) {
+      endpoint = `/products/search?q=${searchQuery}&sortBy=${sortOption}`;
+    } else if (selectedCategory !== "ALL CATEGORIES") {
+      endpoint = `/products/category/${selectedCategory}?sortBy=${sortOption}`;
+    }
+
     axiosInstance
-      .get("/products")
+      .get(endpoint)
       .then((response) => {
         setProducts(response.data.products);
         setLoading(false);
@@ -19,14 +31,14 @@ export const Home = () => {
         console.error("Error fetching products:", error);
         setLoading(false);
       });
-  }, []);
+  }, [selectedCategory, searchQuery, sortOption]);
 
   if (loading) {
     return (
       <div className="m-4">
         <Spin />
       </div>
-    )
+    );
   }
 
   return (
