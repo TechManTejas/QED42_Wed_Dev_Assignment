@@ -13,12 +13,11 @@ export const Home = () => {
 
   useEffect(() => {
     // Determine the endpoint based on the search query and selected category
-    let endpoint = `/products?sortBy=${sortOption}`;
-
+    let endpoint = `/products?select=title,price,category,rating,discountPercentage,thumbnail&sortBy=${sortOption}`;
     if (searchQuery) {
-      endpoint = `/products/search?q=${searchQuery}&sortBy=${sortOption}`;
+      endpoint = `/products/search?q=${searchQuery}&select=title,price,category,rating,discountPercentage,thumbnail&sortBy=${sortOption}`;
     } else if (selectedCategory !== "ALL CATEGORIES") {
-      endpoint = `/products/category/${selectedCategory}?sortBy=${sortOption}`;
+      endpoint = `/products/category/${selectedCategory}?select=title,price,category,rating,discountPercentage,thumbnail&sortBy=${sortOption}`;
     }
 
     axiosInstance
